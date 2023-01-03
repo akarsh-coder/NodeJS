@@ -18,7 +18,17 @@ main {
 form {
   display: inline;
 }
+.centered{
+  text-align: center;
+}
+.productDetails__img{
+  max-width: 20rem;
+  max-height: 30rem;
+}
 
+.productDetails__img img{
+ height: 100%;
+}
 .main-header {
   width: 100%;
   height: 3.5rem;
@@ -202,3 +212,4 @@ form {
     display: none;
   }
 }
+

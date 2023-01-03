@@ -20,7 +20,8 @@ const requestHandler = (req, res) => {
     });
     return req.on("end", () => {
       const parsedBody = Buffer.concat(body).toString();
-      console.log(parsedBody); // message=<input>/ here 'message' is from input tag's name attribute
+      // console.log(parsedBody); 
+      // message=<input>/ here 'message' is from input tag's name attribute
       const message = parsedBody.split("=")[1];
       fs.writeFile("message.txt", message, (err) => {
         res.statusCode = 302;
