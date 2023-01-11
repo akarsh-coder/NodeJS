@@ -5,6 +5,7 @@ exports.getAddProduct = (req, res, next) => {
 		pageTitle: "Add Product",
 		path: "/admin/add-product",
 		editing: false,
+		isAuthenticated: req.session.isLoggedIn,
 	});
 };
 
@@ -13,13 +14,13 @@ exports.postAddProduct = (req, res, next) => {
 	const imageUrl = req.body.imageUrl;
 	const price = req.body.price;
 	const description = req.body.description;
-	const product = new Product(
-		{title:title,
-		price:price,
-		description:description,
-		imageUrl:imageUrl,
-	userId:req.user}
-	);
+	const product = new Product({
+		title: title,
+		price: price,
+		description: description,
+		imageUrl: imageUrl,
+		userId: req.user,
+	});
 	product
 		//from mongoose not defined by us in models
 		.save()
@@ -28,7 +29,7 @@ exports.postAddProduct = (req, res, next) => {
 			console.log("created the product");
 			res.redirect("/admin/products");
 		})
-		.catch((Err) => console.log(err));
+		.catch((err) => console.log(err));
 	// product
 	// 	.save()
 	// 	.then(() => {
@@ -55,6 +56,7 @@ exports.getEditProduct = (req, res, next) => {
 				path: "/admin/edit-product",
 				editing: editMode,
 				product: product,
+				isAuthenticated: req.session.isLoggedIn,
 			});
 		})
 		.catch((err) => console.log(err));
@@ -67,13 +69,15 @@ exports.postEditProduct = (req, res, next) => {
 	const updatedImageUrl = req.body.imageUrl;
 	const updatedDesc = req.body.description;
 
-Product.findById(prodId).then(product=>{
-product.title=updatedTitle;
-product.price=updatedPrice;
-product.description=updatedDesc;
-product.imageUrl=updatedImageUrl;
-return product.save()
-}).then((result) => {
+	Product.findById(prodId)
+		.then((product) => {
+			product.title = updatedTitle;
+			product.price = updatedPrice;
+			product.description = updatedDesc;
+			product.imageUrl = updatedImageUrl;
+			return product.save();
+		})
+		.then((result) => {
 			console.log("UPDATED");
 			res.redirect("/admin/products");
 		})
@@ -82,13 +86,14 @@ return product.save()
 
 exports.getProducts = (req, res, next) => {
 	Product.find()
-	// .select('imageUrl title')
-	// populate('userId', 'name')
+		// .select('imageUrl title')
+		// populate('userId', 'name')
 		.then((products) => {
 			res.render("admin/products", {
 				prods: products,
 				pageTitle: "Admin Products",
 				path: "/admin/products",
+				isAuthenticated: req.session.isLoggedIn,
 			});
 		})
 		.catch((err) => console.log(err));
