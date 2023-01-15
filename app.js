@@ -9,7 +9,7 @@ const errorController = require("./controllers/error");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const csrf=require('csurf')
 const flash=require('connect-flash');
-
+ 
 // const mongoConnect = require("./util/database").mongoConnect; //mongo import
 const User = require("./models/user");
 const app = express();
@@ -60,10 +60,15 @@ app.use((req,res,next)=>{
 	}
 	User.findById(req.session.user._id)
 	.then((user) => {
+		if(!user){
+			return next();
+		}
 		req.user=user;
 		next()
 	})
-	.catch((err) => console.log(err));
+	.catch((err) => {
+		throw new Error(err)
+	});
 })
 //adding authentication and csrf tokens to every views
 app.use((req,res,next)=>{
