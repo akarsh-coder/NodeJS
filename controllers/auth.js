@@ -59,7 +59,11 @@ exports.postSignup = (req, res, next) => {
 		})
 		.then((result) => {
 			res.redirect("/");
-		});
+		}).catch(err => {
+      const error=new Error(err);
+      error.httpStatusCode=500;
+      return next(error)
+    });
 };
 
 exports.getLogin = (req, res, next) => {
@@ -141,7 +145,11 @@ exports.postLogin = (req, res, next) => {
 					res.redirect("/login");
 				});
 		})
-		.catch((err) => console.log(err));
+		.catch(err => {
+      const error=new Error(err);
+      error.httpStatusCode=500;
+      return next(error)
+    });
 };
 
 exports.postLogout = (req, res, next) => {
@@ -188,8 +196,10 @@ exports.postReset = (req, res, next) => {
 				const resetToken = token;
 				console.log(resetToken);
 			})
-			.catch((err) => {
-				console.log(err);
+			.catch(err => {
+				const error=new Error(err);
+				error.httpStatusCode=500;
+				return next(error)
 			});
 	});
 };
