@@ -3,6 +3,11 @@
   padding: 0;
   margin: 0;
 }
+.orders__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .orders__item h1 {
     margin: 0;

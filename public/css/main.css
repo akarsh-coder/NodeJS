@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap");
 
 * {
 	box-sizing: border-box;
@@ -7,7 +7,7 @@
 body {
 	padding: 0;
 	margin: 0;
-	font-family: 'Poppins', sans-serif;
+	font-family: "Poppins", sans-serif;
 }
 
 main {
@@ -237,19 +237,37 @@ form {
 	width: 90%;
 	margin: auto;
 	color: rgb(255, 21, 21);
-	border:1px solid red;
+	border: 1px solid red;
 	border-radius: 3px;
 	background: rgb(235, 221, 221);
 	text-align: center;
 	padding: 0.5rem;
 	transition: 100ms;
-	
 }
-.user-message--error{
+.user-message--error {
 	border-color: rgb(255, 17, 17);
 	background-color: rgb(255, 233, 233);
 	transition: 100ms;
 }
+.pagination {
+	margin-top: 2rem;
+	text-align: center;
+}
+.pagination a {
+	text-decoration: none;
+	color: #00695c;
+	padding: 0.5rem;
+	/* border: 1px solid #00695c; */
+	/* border-width: 1px solid #00695c; */
+	margin: 0 1rem;
+}
+.pagination a:hover,
+.pagination a:active ,
+.pagination a.active {
+	/* background: #00695c; */
+	text-decoration:overline;
+	color: rgb(0, 0, 0);
+} 	 	
 
 @media (min-width: 768px) {
 	.main-header__nav {
